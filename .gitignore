@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Production builds
+dist/
+
+# Local Journey DB & User Data
+.myjourney/
+*.xlsx
+
+docs/**
+
+# Package VSIX artifacts
+*.vsix
+
+# Logs & Environment
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+
+# OS Generated
+.DS_Store
+Thumbs.db
+
+# IDE specific (optional)
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json

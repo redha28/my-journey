@@ -1,0 +1,130 @@
+{
+  "name": "my-journey",
+  "displayName": "My Journey - Work & MR Timeline",
+  "description": "Developer journey, daily task tracking, Merge Request timeline, calendar view, weekly analytics, and Jira copy assistant in Antigravity.",
+  "version": "0.1.0",
+  "publisher": "dhaadev",
+  "icon": "resources/kitsune.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhaadev/my-journey"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Productivity"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onView:myJourney.mainView",
+    "onCommand:myJourney.openDashboard",
+    "onCommand:myJourney.newEntry"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "my-journey-container",
+          "title": "My Journey",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "my-journey-container": [
+        {
+          "type": "webview",
+          "id": "myJourney.mainView",
+          "name": "My Journey",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "myJourney.openDashboard",
+        "title": "My Journey: Open Full Dashboard",
+        "category": "My Journey"
+      },
+      {
+        "command": "myJourney.newEntry",
+        "title": "My Journey: Add New Task / MR",
+        "category": "My Journey",
+        "icon": "$(add)"
+      },
+      {
+        "command": "myJourney.exportStandup",
+        "title": "My Journey: Export Standup & Jira",
+        "category": "My Journey",
+        "icon": "$(output)"
+      },
+      {
+        "command": "myJourney.refresh",
+        "title": "My Journey: Refresh Data",
+        "category": "My Journey",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "myJourney.newEntry",
+          "when": "view == myJourney.mainView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "myJourney.exportStandup",
+          "when": "view == myJourney.mainView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "myJourney.refresh",
+          "when": "view == myJourney.mainView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "myJourney.openDashboard",
+          "when": "view == myJourney.mainView",
+          "group": "navigation@4"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "npm run build:extension && npm run build:webview",
+    "watch": "concurrently \"npm run watch:extension\" \"npm run watch:webview\"",
+    "watch:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap --watch",
+    "watch:webview": "vite build --watch",
+    "build": "npm run build:extension && npm run build:webview",
+    "build:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "build:webview": "vite build"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "exceljs": "^4.4.0",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.0",
+    "tailwind-merge": "^2.6.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/vscode": "^1.80.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.24.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
